@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+</head>
+<body>
+<form>
+    <div>
+        手机号: <input type="text" name="number">
+    </div>
+    <div>
+        验证码: <input type="text" name="verifyCode">
+        <button type="button" class="sendVerifyCode">
+        获取短信验证码</button>
+    </div>
+    <div>
+        <button type="button" class="sub-btn">提交</button>
+    </div>
+</form>
+</body>
+</html>
+<script>
+    $(function(){
+        //发送验证码
+        $(".sendVerifyCode").on("click", function() {
+            var number = $("input[name=number]").val();
+            $.ajax({
+                url: "sendSms",
+                async: true,
+                type: "post",
+                dataType: "json",
+                data: {"number": number},
+                success: function (data) {
+                    if (data == 'fail') {
+                        alert("发送验证码失败");
+                    } else {
+                        alert("成功")
+                    }
+                }
+            })
+        })
+    })
+</script>
